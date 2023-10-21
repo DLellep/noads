@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Player</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Align items at the top of the container */
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+
+        .form-container {
+            text-align: center;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px; /* Add spacing between the form container and the iframe */
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #FF0000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        iframe {
+            width: 90%;
+            height: 80%;
+        }
+
+        /* Dark theme styles */
+        .dark-theme {
+            background-color: #222;
+            color: #fff;
+        }
+
+        .dark-theme .form-container {
+            background-color: #333;
+            border: 1px solid #444;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .dark-theme-switch {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #333;
+            padding: 5px;
+            border: 1px solid #444;
+            border-radius: 20px;
+        }
+
+        .dark-theme-switch label {
+            margin-right: 5px;
+            font-size: 14px;
+        }
+
+        .dark-theme-switch input[type="checkbox"] {
+            display: none;
+        }
+
+        .dark-theme-switch input[type="checkbox"] + label {
+            cursor: pointer;
+            padding: 5px 15px;
+            background-color: #444;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .dark-theme-switch input[type="checkbox"] + label::before {
+            content: "☀";
+            margin-right: 5px;
+        }
+
+        .dark-theme-switch input[type="checkbox"]:checked + label::before {
+            content: "🌙";
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-theme-switch">
+        <input type="checkbox" id="dark-theme-toggle" onchange="toggleDarkTheme()">
+        <label for="dark-theme-toggle"></label>
+    </div>
+    <!-- Form to take in a YouTube video link -->
+    <div class="form-container">
+        <form action="javascript:void(0);" onsubmit="changeVideo(); return false;">
+            <input type="text" id="videoId" placeholder="Enter YouTube video ID (e.g., XfqOB4hvxlY)">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <iframe id="videoIframe" frameborder="0" allowfullscreen src=""></iframe>
+
+    <script>
+        function changeVideo() {
+            const videoId = document.getElementById("videoId").value;
+            const iframe = document.getElementById("videoIframe");
+            iframe.src = `https://www.youtube.com/embed/${videoId}`;
+        }
+
+        function toggleDarkTheme() {
+            const body = document.body;
+            const darkThemeToggle = document.getElementById("dark-theme-toggle");
+
+            if (darkThemeToggle.checked) {
+                body.classList.add("dark-theme");
+            } else {
+                body.classList.remove("dark-theme");
+            }
+        }
+    </script>
+</body>
+</html>
